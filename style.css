@@ -1,0 +1,443 @@
+:root {
+    --bg-color: #050505;
+    --term-green: #0aff0a;
+    --term-dim: #008f11;
+    --term-dark: #003b00;
+    --alert-red: #ff3333;
+    --glass-bg: rgba(10, 20, 10, 0.85);
+    --font-main: 'Vt323', monospace;
+    --font-body: 'Courier Prime', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--term-green);
+    font-family: var(--font-main);
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-shadow: 0 0 5px var(--term-dim);
+}
+
+/* CRT Effects */
+.crs-scanline {
+    width: 100%;
+    height: 100px;
+    z-index: 10;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(32, 255, 77, 0.04) 50%, rgba(0, 0, 0, 0) 100%);
+    opacity: 0.1;
+    position: absolute;
+    bottom: 100%;
+    animation: scanline 10s linear infinite;
+    pointer-events: none;
+}
+
+.crs-flicker {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(18, 16, 16, 0.02);
+    opacity: 0;
+    z-index: 10;
+    pointer-events: none;
+    animation: flicker 0.15s infinite;
+}
+
+@keyframes scanline {
+    0% {
+        bottom: 100%;
+    }
+
+    100% {
+        bottom: -100px;
+    }
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 0.02;
+    }
+
+    5% {
+        opacity: 0.05;
+    }
+
+    10% {
+        opacity: 0.02;
+    }
+
+    100% {
+        opacity: 0.02;
+    }
+}
+
+.game-container {
+    width: 90%;
+    max-width: 800px;
+    height: 90vh;
+    border: 2px solid var(--term-dark);
+    background: var(--glass-bg);
+    box-shadow: 0 0 20px var(--term-dark);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    position: relative;
+    backdrop-filter: blur(5px);
+}
+
+.game-header {
+    border-bottom: 2px solid var(--term-dark);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.progress-bar-container {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    background: var(--term-dark);
+    border: 1px solid var(--term-dim);
+    margin-top: 10px;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--term-dim) 0%, var(--term-green) 100%);
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--term-green);
+    text-shadow: 0 0 5px #000;
+}
+
+.content-area {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.story-text {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 600px;
+    color: #cecece;
+}
+
+#intro-screen h1 {
+    font-size: 4rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+/* Glitch Effect */
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+}
+
+.glitch-text::before {
+    left: 2px;
+    text-shadow: -1px 0 red;
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim 3s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+    left: -2px;
+    text-shadow: -1px 0 blue;
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% {
+        clip: rect(10px, 9999px, 81px, 0);
+    }
+
+    20% {
+        clip: rect(83px, 9999px, 40px, 0);
+    }
+
+    40% {
+        clip: rect(2px, 9999px, 98px, 0);
+    }
+
+    60% {
+        clip: rect(66px, 9999px, 11px, 0);
+    }
+
+    80% {
+        clip: rect(15px, 9999px, 53px, 0);
+    }
+
+    100% {
+        clip: rect(48px, 9999px, 92px, 0);
+    }
+}
+
+/* Input Area */
+.game-footer {
+    border-top: 2px solid var(--term-dark);
+    padding-top: 20px;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+}
+
+.prompt {
+    color: var(--term-green);
+    animation: blink 1s step-end infinite;
+}
+
+input[type="text"] {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--term-dim);
+    color: var(--term-green);
+    font-family: var(--font-main);
+    font-size: 1.8rem;
+    flex-grow: 1;
+    padding: 5px;
+    outline: none;
+    text-transform: uppercase;
+}
+
+input[type="text"]:focus {
+    border-bottom-color: var(--term-green);
+    box-shadow: 0 5px 10px -5px var(--term-green);
+}
+
+button {
+    background: transparent;
+    border: 2px solid var(--term-green);
+    color: var(--term-green);
+    padding: 10px 20px;
+    font-family: var(--font-main);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background: var(--term-green);
+    color: var(--bg-color);
+    box-shadow: 0 0 15px var(--term-green);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.message-area {
+    height: 30px;
+    font-size: 1.2rem;
+    color: var(--term-green);
+    text-align: left;
+    margin-top: 5px;
+}
+
+.error-msg {
+    color: var(--alert-red);
+    text-shadow: 0 0 5px var(--alert-red);
+}
+
+.success-msg {
+    color: var(--term-green);
+    text-shadow: 0 0 10px var(--term-green);
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Puzzle Specific Styles */
+.puzzle-image {
+    max-width: 100%;
+    max-height: 400px;
+    border: 2px solid var(--term-dim);
+    margin: 20px 0;
+    transition: filter 0.3s;
+}
+
+.blueprint-mode {
+    filter: invert(1) hue-rotate(180deg) brightness(1.2);
+}
+
+/* Draggable Items for Timeline */
+.timeline-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 500px;
+}
+
+canvas {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid var(--term-dim);
+    background-color: #000;
+}
+
+.timeline-card {
+    background: var(--term-dark);
+    padding: 15px;
+    border: 1px solid var(--term-dim);
+    cursor: grab;
+    user-select: none;
+}
+
+.timeline-card:active {
+    cursor: grabbing;
+    border-color: var(--term-green);
+}
+
+.level-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+#hint-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#hint-btn {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    text-align: center;
+    box-shadow: 0 0 30px var(--term-green);
+}
+
+.hint-modal-content h3 {
+    margin-bottom: 20px;
+    color: var(--term-green);
+    font-size: 1.5rem;
+}
+
+.hint-modal-content p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+    color: #cecece;
+    font-family: var(--font-body);
+}
+
+.hint-modal-content button {
+    margin-top: 10px;
+}
+
+/* Media Queries */
+@media (max-width: 600px) {
+    #intro-screen h1 {
+        font-size: 2.5rem;
+    }
+
+    .game-container {
+        width: 100%;
+        height: 100vh;
+        border: none;
+        padding: 10px;
+    }
+
+    .story-text {
+        font-size: 1rem;
+    }
+
+    .header-top {
+        font-size: 1.2rem;
+    }
+
+    canvas {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    .timeline-puzzle ul {
+        font-size: 0.9rem;
+    }
+}
+
+/* Celebration Particles */
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--term-green);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particle-rise 1s ease-out forwards;
+    box-shadow: 0 0 10px var(--term-green);
+}
+
+@keyframes particle-rise {
+    0% {
+        bottom: 50%;
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    100% {
+        bottom: 100%;
+        opacity: 0;
+        transform: translateY(-100px) scale(0.5);
+    }
+}

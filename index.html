@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Echoes of Section 9</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=VT323&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="crs-scanline"></div>
+    <div class="crs-flicker"></div>
+
+    <div class="game-container">
+        <header class="game-header">
+            <div class="header-top">
+                <span id="level-indicator">CONNECTION SECURE</span>
+                <span id="timer">00:00</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+                <span class="progress-text" id="progress-text">0 / 5</span>
+            </div>
+        </header>
+
+        <main id="game-content" class="content-area">
+            <!-- Dynamic Content Will Be Loaded Here -->
+            <div id="intro-screen">
+                <h1 class="glitch-text" data-text="THE ECHOES OF SECTION 9">THE ECHOES OF SECTION 9</h1>
+                <p class="story-text">
+                    They said Section 9 was just a storage room. They lied.<br><br>
+                    I found the backdoor, but I can't open it alone. I need a mind that sees patterns where others see
+                    noise.<br><br>
+                    Are you ready to find the truth?
+                    <br><br>
+                    - Echo
+                </p>
+                <button id="start-btn" class="terminal-btn">[ BEGIN INVESTIGATION ]</button>
+            </div>
+        </main>
+
+        <footer class="game-footer">
+            <div class="input-group hidden" id="input-area">
+                <span class="prompt">></span>
+                <input type="text" id="answer-input" placeholder="ENTER DECRYPTION KEY..." autocomplete="off">
+                <button id="submit-btn">SUBMIT</button>
+            </div>
+            <div id="hint-container" class="hidden">
+                <button id="hint-btn" title="Request Decryption Assist">?</button>
+            </div>
+            <div id="message-area" class="message-area"></div>
+        </footer>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="audio-bg" loop>
+        <source src="" type="audio/mp3">
+    </audio>
+    <audio id="audio-sfx">
+        <source src="" type="audio/mp3">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
